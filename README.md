@@ -1,7 +1,3 @@
-Of course. Here is the complete `README.md` description for **Coyotekey**, translated into English.
-
------
-
 # Coyotekey
 
 > A fast and configurable command-line (CLI) API reconnaissance tool, designed to help pentesters and bug hunters discover hidden or undocumented API endpoints.
