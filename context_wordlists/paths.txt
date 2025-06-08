@@ -1,0 +1,15 @@
+api
+v1
+v2
+v3
+admin
+users
+login
+status
+health
+config
+products
+orders
+items
+swagger.json
+openapi.json

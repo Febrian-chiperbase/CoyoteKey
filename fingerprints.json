@@ -1,0 +1,57 @@
+{
+  "fingerprints": [
+    {
+      "tech": "nginx",
+      "type": "header",
+      "header": "Server",
+      "pattern": "(?i)nginx",
+      "confidence": "low"
+    },
+    {
+      "tech": "apache",
+      "type": "header",
+      "header": "Server",
+      "pattern": "(?i)apache",
+      "confidence": "low"
+    },
+    {
+      "tech": "php",
+      "type": "header",
+      "header": "X-Powered-By",
+      "pattern": "(?i)php",
+      "confidence": "medium"
+    },
+    {
+      "tech": "laravel",
+      "type": "cookie",
+      "pattern": "(?i)laravel_session",
+      "confidence": "high"
+    },
+    {
+      "tech": "java_app_server",
+      "type": "cookie",
+      "pattern": "(?i)jsessionid",
+      "confidence": "medium"
+    },
+    {
+      "tech": "wordpress",
+      "type": "content",
+      "path": "/",
+      "pattern": "(?i)/wp-content/|/wp-includes/|content=\"WordPress\"",
+      "confidence": "high"
+    },
+    {
+      "tech": "spring_boot",
+      "type": "content",
+      "path": "/a_random_error_path",
+      "pattern": "(?i)Whitelabel Error Page",
+      "confidence": "high"
+    },
+    {
+      "tech": "spring_boot",
+      "type": "favicon_hash",
+      "hash": "0488faca4c19046b94d07c3ee83cf9d6",
+      "confidence": "high"
+    }
+  ]
+}
