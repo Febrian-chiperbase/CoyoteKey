@@ -1,0 +1,61 @@
+MIT License
+
+Copyright (c) 2025 Febrian Chiperbase
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+DISCLAIMER AND TERMS OF USE
+
+This software is intended for authorized security testing and educational 
+purposes only. Users are solely responsible for ensuring they have proper 
+authorization before using this tool against any systems or networks.
+
+By using this software, you agree to:
+
+1. Only use this tool on systems you own or have explicit written permission 
+   to test
+2. Comply with all applicable local, state, national, and international laws
+3. Not use this tool for malicious purposes or unauthorized access
+4. Take full responsibility for any consequences resulting from the use of 
+   this software
+5. Not hold the authors or contributors liable for any damages or legal issues
+
+The authors and contributors of this software:
+- Do not condone or support any illegal or unauthorized use
+- Are not responsible for any misuse of this tool
+- Provide this software "as is" without any warranties
+- Reserve the right to modify these terms at any time
+
+ETHICAL USE GUIDELINES:
+
+✅ Authorized penetration testing
+✅ Security research with proper permissions  
+✅ Educational purposes in controlled environments
+✅ Bug bounty programs with explicit authorization
+✅ Personal learning on your own systems
+
+❌ Unauthorized access attempts
+❌ Malicious attacks on systems you don't own
+❌ Violating terms of service or user agreements
+❌ Any illegal activities
+❌ Causing harm or disruption to services
+
+For questions about appropriate use, please contact: security@chiperbase.com
