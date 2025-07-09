@@ -1,0 +1,11 @@
+# Database test wordlist
+sk_test_1234567890abcdef
+api_key_abcdef1234567890
+secret_token_xyz789
+password123
+admin_key
+test_token
+bearer_xyz
+session_abc
+oauth_token_123
+jwt_token_456

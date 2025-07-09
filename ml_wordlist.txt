@@ -1,0 +1,19 @@
+# High entropy keys
+sk_test_1234567890abcdef
+api_key_abcdef1234567890
+secret_token_xyz789
+
+# Low entropy keys
+password123
+admin
+test
+
+# Mixed patterns
+User123Token
+API_KEY_2024
+jwt_token_abc
+
+# Special patterns
+Bearer_Token_XYZ
+oauth2_access_token
+session_id_12345

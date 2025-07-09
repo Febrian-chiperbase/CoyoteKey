@@ -1,0 +1,260 @@
+{
+  "dashboard_configurations": {
+    "development": {
+      "host": "localhost",
+      "port": 8080,
+      "ssl": false,
+      "auth_enabled": false,
+      "cors_enabled": true,
+      "websocket_enabled": true,
+      "real_time_monitoring": true,
+      "notifications_enabled": true,
+      "description": "Development configuration with minimal security",
+      "features": [
+        "Real-time monitoring",
+        "WebSocket support",
+        "CORS enabled",
+        "No authentication required"
+      ]
+    },
+    "staging": {
+      "host": "0.0.0.0",
+      "port": 8080,
+      "ssl": false,
+      "auth_enabled": true,
+      "username": "admin",
+      "password": "staging_password_123",
+      "api_key": "staging_api_key_456",
+      "cors_enabled": true,
+      "websocket_enabled": true,
+      "real_time_monitoring": true,
+      "team_collaboration": true,
+      "visual_analytics": true,
+      "notifications_enabled": true,
+      "description": "Staging configuration with basic authentication",
+      "features": [
+        "Basic authentication",
+        "Team collaboration",
+        "Visual analytics",
+        "API key authentication",
+        "Real-time monitoring"
+      ]
+    },
+    "production": {
+      "host": "0.0.0.0",
+      "port": 443,
+      "ssl": true,
+      "cert_file": "/etc/ssl/certs/coyotekey.crt",
+      "key_file": "/etc/ssl/private/coyotekey.key",
+      "auth_enabled": true,
+      "username": "admin",
+      "password": "production_secure_password_789",
+      "api_key": "production_api_key_secure_123456",
+      "cors_enabled": false,
+      "websocket_enabled": true,
+      "real_time_monitoring": true,
+      "team_collaboration": true,
+      "visual_analytics": true,
+      "notifications_enabled": true,
+      "description": "Production configuration with full security",
+      "features": [
+        "SSL/HTTPS encryption",
+        "Strong authentication",
+        "Secure API keys",
+        "Team collaboration",
+        "Visual analytics",
+        "Real-time monitoring",
+        "Production-grade security"
+      ],
+      "security_headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
+      }
+    }
+  },
+  "api_endpoints": {
+    "stats": {
+      "path": "/api/stats",
+      "method": "GET",
+      "description": "Get real-time attack statistics",
+      "auth_required": true,
+      "response_format": "json",
+      "example_response": {
+        "success": true,
+        "data": {
+          "total_sessions": 150,
+          "active_sessions": 5,
+          "total_requests": 50000,
+          "successful_requests": 1250,
+          "success_rate": 0.025,
+          "avg_response_time": 450.5
+        }
+      }
+    },
+    "sessions": {
+      "path": "/api/sessions",
+      "method": "GET",
+      "description": "Get active attack sessions",
+      "auth_required": true,
+      "response_format": "json"
+    },
+    "targets": {
+      "path": "/api/targets",
+      "method": "GET",
+      "description": "Get target statistics and information",
+      "auth_required": true,
+      "response_format": "json"
+    },
+    "results": {
+      "path": "/api/results",
+      "method": "GET",
+      "description": "Get recent attack results",
+      "auth_required": true,
+      "response_format": "json",
+      "query_parameters": {
+        "limit": "Number of results to return (default: 100)",
+        "offset": "Offset for pagination (default: 0)",
+        "session_id": "Filter by specific session ID"
+      }
+    },
+    "analytics": {
+      "path": "/api/analytics",
+      "method": "GET",
+      "description": "Get comprehensive analytics data",
+      "auth_required": true,
+      "response_format": "json"
+    },
+    "health": {
+      "path": "/api/health",
+      "method": "GET",
+      "description": "Get system health status",
+      "auth_required": false,
+      "response_format": "json",
+      "example_response": {
+        "success": true,
+        "data": {
+          "cpu_usage": 45.2,
+          "memory_usage": 67.8,
+          "disk_usage": 23.1,
+          "database_health": {
+            "connected": true,
+            "response_time": 12.5
+          }
+        }
+      }
+    },
+    "notifications": {
+      "path": "/api/notifications",
+      "method": "GET",
+      "description": "Get user notifications",
+      "auth_required": true,
+      "response_format": "json"
+    },
+    "alerts": {
+      "path": "/api/alerts",
+      "method": "GET",
+      "description": "Get system alerts",
+      "auth_required": true,
+      "response_format": "json"
+    }
+  },
+  "websocket_channels": {
+    "stats": {
+      "channel": "stats",
+      "description": "Real-time statistics updates",
+      "update_frequency": "5 seconds",
+      "auth_required": true
+    },
+    "notifications": {
+      "channel": "notifications",
+      "description": "Real-time notifications",
+      "update_frequency": "immediate",
+      "auth_required": true
+    },
+    "alerts": {
+      "channel": "alerts",
+      "description": "Real-time alerts",
+      "update_frequency": "immediate",
+      "auth_required": true
+    },
+    "results": {
+      "channel": "results",
+      "description": "Live attack results",
+      "update_frequency": "immediate",
+      "auth_required": true
+    }
+  },
+  "authentication": {
+    "session_timeout": "1 hour",
+    "max_sessions_per_user": 5,
+    "password_requirements": {
+      "min_length": 8,
+      "require_uppercase": true,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_special_chars": false
+    },
+    "api_key_format": {
+      "length": 32,
+      "charset": "alphanumeric",
+      "prefix": "ck_"
+    }
+  },
+  "notifications": {
+    "types": [
+      "session_started",
+      "session_completed",
+      "key_found",
+      "target_completed",
+      "discovery_completed",
+      "auth_success",
+      "system_alert",
+      "error_occurred"
+    ],
+    "levels": [
+      "info",
+      "success",
+      "warning",
+      "error"
+    ],
+    "retention": "7 days",
+    "max_notifications": 1000
+  },
+  "alerts": {
+    "thresholds": {
+      "success_rate_low": 0.01,
+      "response_time_high": 5000,
+      "error_rate_high": 0.5,
+      "requests_per_sec_high": 100,
+      "cpu_usage_high": 80.0,
+      "memory_usage_high": 90.0,
+      "disk_usage_high": 85.0
+    },
+    "severities": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "retention": "30 days"
+  },
+  "performance": {
+    "max_concurrent_connections": 100,
+    "request_timeout": "30 seconds",
+    "websocket_ping_interval": "30 seconds",
+    "session_cleanup_interval": "5 minutes",
+    "stats_update_interval": "5 seconds",
+    "cache_size": "100MB",
+    "compression_enabled": true
+  },
+  "logging": {
+    "access_log": true,
+    "error_log": true,
+    "debug_log": false,
+    "log_rotation": true,
+    "max_log_size": "100MB",
+    "max_log_files": 10
+  }
+}

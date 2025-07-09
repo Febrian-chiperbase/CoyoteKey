@@ -1,0 +1,13 @@
+{
+  "features": [
+    [16, 4.2, 1, 1, 0, 1, 250, 1024, 200, 14, 2],
+    [8, 2.1, 1, 0, 0, 1, 180, 512, 401, 14, 2],
+    [12, 3.5, 1, 1, 1, 1, 300, 2048, 200, 15, 3]
+  ],
+  "labels": [1, 0, 1],
+  "metadata": [
+    {"url": "https://api.example.com", "success": true, "key_pattern": "ULNS"},
+    {"url": "https://api.example.com", "success": false, "key_pattern": "LN"},
+    {"url": "https://api.example.com", "success": true, "key_pattern": "ULNS"}
+  ]
+}

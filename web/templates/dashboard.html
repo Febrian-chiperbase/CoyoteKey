@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoyoteKey - API Security Testing Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="icon">🔐</span>
+                <span>CoyoteKey Dashboard</span>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" class="tab-button active" data-tab="dashboard">Dashboard</a></li>
+                    <li><a href="#" class="tab-button" data-tab="attack">Attack Config</a></li>
+                    <li><a href="#" class="tab-button" data-tab="results">Results</a></li>
+                    <li><a href="#" class="tab-button" data-tab="analytics">Analytics</a></li>
+                    <li><a href="#" class="tab-button" data-tab="settings">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="status-indicator" title="Connected"></div>
+                <span>Admin</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notifications -->
+    <div id="notifications" class="notifications-container"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content">
+            <!-- Stats Grid -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="totalSessions">0</div>
+                    <div class="stat-label">Total Sessions</div>
+                    <div class="stat-change positive">+12% from last week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value" id="activeSessions">0</div>
+                    <div class="stat-label">Active Sessions</div>
+                    <div class="stat-change positive">Currently running</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📡</div>
+                    <div class="stat-value" id="totalRequests">0</div>
+                    <div class="stat-label">Total Requests</div>
+                    <div class="stat-change positive">+5.2% today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="successRate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                    <div class="stat-change positive">Improving</div>
+                </div>
+            </div>
+
+            <!-- Progress Bar (shown during attacks) -->
+            <div id="progressContainer" class="progress-container" style="display: none;">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div id="progressText" class="progress-text">0% Complete (0/0)</div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Success Rate Over Time</h3>
+                    <canvas id="successRateChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Response Time Trends</h3>
+                    <canvas id="responseTimeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>📋</span>
+                        Recent Activity
+                    </h2>
+                    <button class="btn btn-secondary" id="clearResults">Clear Activity</button>
+                </div>
+                <div class="section-content">
+                    <div id="activityFeed" class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon info">ℹ️</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Dashboard Initialized</div>
+                                <div class="activity-description">CoyoteKey dashboard is ready for use</div>
+                            </div>
+                            <div class="activity-time">Just now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attack Configuration Tab -->
+        <div id="attackTab" class="tab-content" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>🚀</span>
+                        Attack Configuration
+                    </h2>
+                    <div>
+                        <button class="btn btn-success" id="startAttack">🚀 Start Attack</button>
+                        <button class="btn btn-danger" id="stopAttack" disabled>🛑 Stop Attack</button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <form id="attackForm" class="config-form">
+                        <!-- Basic Configuration -->
+                        <div class="form-group">
+                            <label class="form-label" for="target">Target URL</label>
+                            <input type="url" id="target" name="target" class="form-input" 
+                                   placeholder="https://api.example.com/endpoint">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="method">HTTP Method</label>
+                            <select id="method" name="method" class="form-select">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                                <option value="PATCH">PATCH</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="headerFormat">Header Format</label>
+                            <input type="text" id="headerFormat" name="headerFormat" class="form-input" 
+                                   value="X-API-Key: %KEY%" placeholder="Authorization: Bearer %KEY%">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="successCodes">Success Status Codes</label>
+                            <input type="text" id="successCodes" name="successCodes" class="form-input" 
+                                   value="200" placeholder="200,201,202">
+                        </div>
+
+                        <!-- Wordlist Configuration -->
+                        <div class="form-group">
+                            <label class="form-label" for="wordlist">Wordlist (one per line)</label>
+                            <textarea id="wordlist" name="wordlist" class="form-textarea" 
+                                      placeholder="api_key_123&#10;secret_token_456&#10;bearer_token_789"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="wordlistFile">Or Upload Wordlist File</label>
+                            <input type="file" id="wordlistFile" name="wordlistFile" class="form-input" accept=".txt,.csv">
+                            <div id="wordlistPreview" class="file-preview"></div>
+                        </div>
+
+                        <!-- Multi-Target Configuration -->
+                        <div class="form-group">
+                            <label class="form-label" for="targets">Multiple Targets (one per line)</label>
+                            <textarea id="targets" name="targets" class="form-textarea" 
+                                      placeholder="https://api1.example.com&#10;https://api2.example.com"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="targetsFile">Or Upload Targets File</label>
+                            <input type="file" id="targetsFile" name="targetsFile" class="form-input" accept=".txt,.csv">
+                            <div id="targetsPreview" class="file-preview"></div>
+                        </div>
+
+                        <!-- Performance Configuration -->
+                        <div class="form-group">
+                            <label class="form-label" for="threads">Concurrent Threads</label>
+                            <input type="number" id="threads" name="threads" class="form-input" 
+                                   value="10" min="1" max="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="rateLimit">Rate Limit (req/sec)</label>
+                            <input type="number" id="rateLimit" name="rateLimit" class="form-input" 
+                                   value="0" min="0" max="1000">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="delay">Delay Between Requests (ms)</label>
+                            <input type="number" id="delay" name="delay" class="form-input" 
+                                   value="0" min="0" max="10000">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="timeout">Request Timeout (seconds)</label>
+                            <input type="number" id="timeout" name="timeout" class="form-input" 
+                                   value="10" min="1" max="300">
+                        </div>
+
+                        <!-- Advanced Features -->
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="mlEnabled" name="mlEnabled">
+                                <label for="mlEnabled">🤖 Machine Learning</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="successPrediction" name="successPrediction">
+                                <label for="successPrediction">🧠 Success Prediction</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="intelligentSorting" name="intelligentSorting">
+                                <label for="intelligentSorting">🎯 Intelligent Sorting</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="adaptiveLearning" name="adaptiveLearning">
+                                <label for="adaptiveLearning">📈 Adaptive Learning</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="patternRecognition" name="patternRecognition">
+                                <label for="patternRecognition">🔍 Pattern Recognition</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="behaviorAnalysis" name="behaviorAnalysis">
+                                <label for="behaviorAnalysis">🎭 Behavior Analysis</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="anomalyDetection" name="anomalyDetection">
+                                <label for="anomalyDetection">⚠️ Anomaly Detection</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="wafDetection" name="wafDetection">
+                                <label for="wafDetection">🛡️ WAF Detection</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="smartThrottle" name="smartThrottle">
+                                <label for="smartThrottle">⚡ Smart Throttling</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="randomDelay" name="randomDelay">
+                                <label for="randomDelay">🎲 Random Delay</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="headerRotation" name="headerRotation">
+                                <label for="headerRotation">🔄 Header Rotation</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="proxyRotation" name="proxyRotation">
+                                <label for="proxyRotation">🌐 Proxy Rotation</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Tab -->
+        <div id="resultsTab" class="tab-content" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>📊</span>
+                        Attack Results
+                    </h2>
+                    <div>
+                        <button class="btn btn-primary" id="exportResults">📥 Export Results</button>
+                        <button class="btn btn-secondary" id="clearResults">🗑️ Clear Results</button>
+                    </div>
+                </div>
+                <div class="section-content">
+                    <div class="table-container">
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>API Key</th>
+                                    <th>Target URL</th>
+                                    <th>Status</th>
+                                    <th>Response Time</th>
+                                    <th>Content Length</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Results will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analyticsTab" class="tab-content" style="display: none;">
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Status Code Distribution</h3>
+                    <canvas id="statusCodeChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Requests per Target</h3>
+                    <canvas id="targetChart"></canvas>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>📈</span>
+                        Performance Analytics
+                    </h2>
+                </div>
+                <div class="section-content">
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-value" id="avgResponseTime">0ms</div>
+                            <div class="stat-label">Avg Response Time</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-value" id="requestsPerSecond">0</div>
+                            <div class="stat-label">Requests/Second</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔍</div>
+                            <div class="stat-value" id="uniqueTargets">0</div>
+                            <div class="stat-label">Unique Targets</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔑</div>
+                            <div class="stat-value" id="keysFound">0</div>
+                            <div class="stat-label">Keys Found</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settingsTab" class="tab-content" style="display: none;">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>⚙️</span>
+                        Dashboard Settings
+                    </h2>
+                    <button class="btn btn-primary" form="settingsForm">💾 Save Settings</button>
+                </div>
+                <div class="section-content">
+                    <form id="settingsForm" class="config-form">
+                        <div class="form-group">
+                            <label class="form-label" for="apiKey">API Key</label>
+                            <input type="password" id="apiKey" name="apiKey" class="form-input" 
+                                   placeholder="Enter your API key for authentication">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="refreshInterval">Refresh Interval (seconds)</label>
+                            <input type="number" id="refreshInterval" name="refreshInterval" class="form-input" 
+                                   value="5" min="1" max="60">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="maxResults">Max Results to Display</label>
+                            <input type="number" id="maxResults" name="maxResults" class="form-input" 
+                                   value="100" min="10" max="1000">
+                        </div>
+
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="autoRefresh" name="autoRefresh" checked>
+                                <label for="autoRefresh">🔄 Auto Refresh</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="soundNotifications" name="soundNotifications">
+                                <label for="soundNotifications">🔊 Sound Notifications</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="darkMode" name="darkMode">
+                                <label for="darkMode">🌙 Dark Mode</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="verboseLogging" name="verboseLogging">
+                                <label for="verboseLogging">📝 Verbose Logging</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- System Information -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span>💻</span>
+                        System Information
+                    </h2>
+                </div>
+                <div class="section-content">
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🖥️</div>
+                            <div class="stat-value" id="cpuUsage">0%</div>
+                            <div class="stat-label">CPU Usage</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💾</div>
+                            <div class="stat-value" id="memoryUsage">0%</div>
+                            <div class="stat-label">Memory Usage</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💿</div>
+                            <div class="stat-value" id="diskUsage">0%</div>
+                            <div class="stat-label">Disk Usage</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🌐</div>
+                            <div class="stat-value" id="networkIO">0 MB/s</div>
+                            <div class="stat-label">Network I/O</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

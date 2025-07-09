@@ -1,0 +1,175 @@
+{
+  "database_configurations": {
+    "sqlite": {
+      "type": "sqlite",
+      "database": "coyotekey.db",
+      "description": "Local SQLite database for development and testing",
+      "features": [
+        "File-based storage",
+        "No server required",
+        "ACID compliance",
+        "Cross-platform compatibility"
+      ],
+      "use_cases": [
+        "Development and testing",
+        "Single-user scenarios",
+        "Embedded applications",
+        "Quick prototyping"
+      ]
+    },
+    "postgresql": {
+      "type": "postgres",
+      "host": "localhost",
+      "port": 5432,
+      "database": "coyotekey",
+      "username": "coyotekey_user",
+      "password": "secure_password",
+      "ssl_mode": "require",
+      "max_connections": 20,
+      "max_idle_connections": 10,
+      "connection_timeout": "30s",
+      "description": "PostgreSQL database for production environments",
+      "features": [
+        "ACID compliance",
+        "Advanced indexing",
+        "JSON/JSONB support",
+        "Full-text search",
+        "Concurrent access",
+        "Replication support"
+      ],
+      "use_cases": [
+        "Production environments",
+        "Multi-user scenarios",
+        "Large datasets",
+        "Complex queries",
+        "High availability setups"
+      ]
+    },
+    "mysql": {
+      "type": "mysql",
+      "host": "localhost",
+      "port": 3306,
+      "database": "coyotekey",
+      "username": "coyotekey_user",
+      "password": "secure_password",
+      "ssl_mode": "required",
+      "max_connections": 15,
+      "max_idle_connections": 8,
+      "connection_timeout": "30s",
+      "description": "MySQL database for web applications",
+      "features": [
+        "High performance",
+        "Replication support",
+        "Partitioning",
+        "JSON support",
+        "Full-text indexing",
+        "Clustering"
+      ],
+      "use_cases": [
+        "Web applications",
+        "Content management",
+        "E-commerce platforms",
+        "Data warehousing",
+        "Analytics applications"
+      ]
+    }
+  },
+  "connection_examples": {
+    "sqlite_url": "sqlite://./coyotekey.db",
+    "postgresql_url": "postgres://username:password@localhost:5432/coyotekey?sslmode=require",
+    "mysql_url": "mysql://username:password@localhost:3306/coyotekey?charset=utf8mb4&parseTime=True&loc=Local"
+  },
+  "performance_tuning": {
+    "sqlite": {
+      "pragma_settings": [
+        "PRAGMA journal_mode = WAL;",
+        "PRAGMA synchronous = NORMAL;",
+        "PRAGMA cache_size = 10000;",
+        "PRAGMA temp_store = memory;"
+      ],
+      "optimization_tips": [
+        "Use WAL mode for better concurrency",
+        "Increase cache size for better performance",
+        "Use prepared statements",
+        "Create appropriate indexes"
+      ]
+    },
+    "postgresql": {
+      "configuration": {
+        "shared_buffers": "256MB",
+        "effective_cache_size": "1GB",
+        "maintenance_work_mem": "64MB",
+        "checkpoint_completion_target": 0.9,
+        "wal_buffers": "16MB",
+        "default_statistics_target": 100
+      },
+      "optimization_tips": [
+        "Tune shared_buffers based on available RAM",
+        "Use connection pooling",
+        "Analyze query performance with EXPLAIN",
+        "Regular VACUUM and ANALYZE operations"
+      ]
+    },
+    "mysql": {
+      "configuration": {
+        "innodb_buffer_pool_size": "256M",
+        "innodb_log_file_size": "64M",
+        "innodb_flush_log_at_trx_commit": 1,
+        "query_cache_size": "32M",
+        "max_connections": 100,
+        "thread_cache_size": 8
+      },
+      "optimization_tips": [
+        "Tune InnoDB buffer pool size",
+        "Use appropriate storage engines",
+        "Optimize queries with EXPLAIN",
+        "Regular table optimization"
+      ]
+    }
+  },
+  "backup_strategies": {
+    "sqlite": {
+      "methods": [
+        "File copy (when database is not in use)",
+        "SQLite .backup command",
+        "VACUUM INTO command for compression"
+      ],
+      "example_commands": [
+        "cp coyotekey.db coyotekey_backup_$(date +%Y%m%d_%H%M%S).db",
+        "sqlite3 coyotekey.db '.backup coyotekey_backup.db'",
+        "sqlite3 coyotekey.db 'VACUUM INTO \"coyotekey_compressed.db\"'"
+      ]
+    },
+    "postgresql": {
+      "methods": [
+        "pg_dump for logical backups",
+        "pg_basebackup for physical backups",
+        "Continuous archiving with WAL-E"
+      ],
+      "example_commands": [
+        "pg_dump -h localhost -U coyotekey_user -d coyotekey > backup.sql",
+        "pg_dump -h localhost -U coyotekey_user -d coyotekey -Fc > backup.dump",
+        "pg_basebackup -h localhost -U coyotekey_user -D /backup/base -Ft -z"
+      ]
+    },
+    "mysql": {
+      "methods": [
+        "mysqldump for logical backups",
+        "MySQL Enterprise Backup for physical backups",
+        "Binary log replication"
+      ],
+      "example_commands": [
+        "mysqldump -u coyotekey_user -p coyotekey > backup.sql",
+        "mysqldump -u coyotekey_user -p --single-transaction coyotekey > backup.sql",
+        "mysqlpump -u coyotekey_user -p coyotekey > backup.sql"
+      ]
+    }
+  },
+  "monitoring_queries": {
+    "session_statistics": "SELECT COUNT(*) as total_sessions, AVG(success_count) as avg_success, MAX(total_requests) as max_requests FROM attack_sessions;",
+    "recent_activity": "SELECT DATE(created_at) as date, COUNT(*) as sessions FROM attack_sessions WHERE created_at >= DATE('now', '-7 days') GROUP BY DATE(created_at);",
+    "top_targets": "SELECT url, COUNT(*) as request_count, AVG(response_time) as avg_response_time FROM attack_results GROUP BY url ORDER BY request_count DESC LIMIT 10;",
+    "success_rate_by_hour": "SELECT strftime('%H', timestamp) as hour, COUNT(*) as total, SUM(CASE WHEN success = 1 THEN 1 ELSE 0 END) as successful FROM attack_results GROUP BY strftime('%H', timestamp);",
+    "database_size": "SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();"
+  }
+}

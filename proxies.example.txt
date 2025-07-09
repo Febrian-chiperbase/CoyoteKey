@@ -1,0 +1,25 @@
+# Proxy List Example
+# Format: protocol://ip:port
+# Lines starting with # are comments
+
+# HTTP Proxies
+http://127.0.0.1:8080
+http://127.0.0.1:3128
+http://proxy1.example.com:8080
+http://proxy2.example.com:3128
+
+# HTTPS Proxies
+https://secure-proxy.example.com:8443
+https://proxy3.example.com:8080
+
+# SOCKS Proxies
+socks5://127.0.0.1:1080
+socks5://socks-proxy.example.com:1080
+
+# Public Proxies (Example - use with caution)
+# http://free-proxy1.com:8080
+# http://free-proxy2.com:3128
+# socks5://free-socks.com:1080
+
+# Tor Proxy (if running locally)
+# socks5://127.0.0.1:9050

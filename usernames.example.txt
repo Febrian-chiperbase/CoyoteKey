@@ -1,0 +1,92 @@
+# Common Usernames for Authentication Testing
+
+# Default/Admin Accounts
+admin
+administrator
+root
+user
+guest
+test
+demo
+api
+service
+system
+
+# Common User Patterns
+admin123
+user123
+test123
+demo123
+guest123
+api_user
+service_account
+system_user
+
+# Application Specific
+app_admin
+app_user
+web_admin
+web_user
+db_admin
+db_user
+api_admin
+api_user
+
+# Service Accounts
+service
+svc
+sa
+serviceaccount
+service-account
+app-service
+web-service
+api-service
+
+# Development/Testing
+dev
+developer
+tester
+qa
+staging
+prod
+production
+
+# Database Users
+mysql
+postgres
+oracle
+mongodb
+redis
+elastic
+cassandra
+
+# Common Names
+john
+jane
+smith
+johnson
+williams
+brown
+jones
+garcia
+miller
+davis
+
+# Email Patterns
+admin@example.com
+user@example.com
+test@example.com
+demo@example.com
+api@example.com
+service@example.com
+
+# Numeric Patterns
+user1
+user2
+user3
+admin1
+admin2
+test1
+test2
+api1
+api2

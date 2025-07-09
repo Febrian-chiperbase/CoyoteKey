@@ -1,0 +1,30 @@
+# Multi-Target Configuration File
+# Format: URL [METHOD] [HEADER_FORMAT] [SUCCESS_CODES]
+# Lines starting with # are comments
+
+# GitHub API endpoints
+https://api.github.com/user GET Authorization: token %KEY%
+https://api.github.com/user/repos GET Authorization: token %KEY%
+https://api.github.com/orgs/octocat GET Authorization: token %KEY%
+
+# Generic API endpoints
+https://httpbin.org/headers GET X-API-Key: %KEY%
+https://httpbin.org/bearer POST Authorization: Bearer %KEY%
+https://httpbin.org/status/200 GET X-Custom-Key: %KEY%
+
+# Example with different methods
+https://api.example.com/v1/users GET Authorization: Bearer %KEY%
+https://api.example.com/v1/profile POST X-API-Key: %KEY%
+https://api.example.com/v2/data PUT Authorization: API-Key %KEY%
+
+# AWS API Gateway examples
+https://api.aws-region.amazonaws.com/prod/endpoint GET X-API-Key: %KEY%
+https://execute-api.us-east-1.amazonaws.com/prod/users GET X-API-Key: %KEY%
+
+# Custom headers format
+https://api.service.com/v1/endpoint GET Custom-Auth-Header: %KEY%
+https://another-api.com/data GET Token: %KEY%
+
+# Different success codes (will use global config)
+https://api.returns-201.com/create POST Authorization: Bearer %KEY%
+https://api.returns-202.com/async GET X-Token: %KEY%

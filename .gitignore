@@ -1,0 +1,99 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+coyotekey
+CoyoteKey
+
+# Test binary
+go_build_*
+
+# Build directory
+build/
+dist/
+
+# Test files
+test_*.txt
+*_test.json
+results.json
+output.json
+
+# Go workspace file
+go.work
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Config files with sensitive data
+config.json
+*.key
+*.pem
+
+# Wordlists (except samples)
+wordlist.txt
+wordlists/
+*.wordlist
+
+# Results and reports
+results/
+reports/
+*.csv
+*.xlsx
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# ML model files
+*.model
+*.pkl
+
+# GUI temporary files
+gui_*.txt
+gui_*.json
+gui_output.log
+
+# Demo output files
+*_demo_*.json
+*_demo_*.txt
+demo_*.log
+
+# Backup files
+*.bak
+*.backup
+
+# Node modules (if any)
+node_modules/
+
+# Python cache (if any)
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment files
+.env
+.env.local
+.env.production

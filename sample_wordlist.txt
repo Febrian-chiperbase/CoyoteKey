@@ -1,0 +1,43 @@
+# Sample API Keys for Testing
+# GitHub Personal Access Tokens
+ghp_1234567890abcdefghijklmnopqrstuvwxyz
+ghp_abcdefghijklmnopqrstuvwxyz1234567890
+
+# Generic API Keys
+sk-1234567890abcdef
+sk-abcdefghijklmnop
+api_key_123456789
+api_key_abcdefghij
+
+# Bearer Tokens
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example
+bearer_token_example_123
+bearer_token_sample_456
+
+# AWS API Keys
+AKIA1234567890ABCDEF
+AKIAIOSFODNN7EXAMPLE
+
+# Google API Keys
+AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI
+AIzaSyBkF4ktyoMCco0YHKQqLpJu7icXMlPdUAY
+
+# Azure Keys
+abc123def456ghi789jkl012mno345pqr678stu
+def456ghi789jkl012mno345pqr678stu901vwx
+
+# Custom API Keys
+custom_api_key_001
+custom_api_key_002
+test_key_12345
+demo_key_67890
+
+# Common Weak Keys
+admin
+password
+123456
+test
+demo
+key
+secret
+token

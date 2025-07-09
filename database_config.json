@@ -1,0 +1,12 @@
+{
+  "type": "sqlite",
+  "host": "localhost",
+  "port": 5432,
+  "database": "coyotekey_demo",
+  "username": "coyotekey_user",
+  "password": "secure_password",
+  "ssl_mode": "disable",
+  "max_connections": 10,
+  "max_idle_connections": 5,
+  "connection_timeout": "30s"
+}
