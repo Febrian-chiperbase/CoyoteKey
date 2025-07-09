@@ -1,0 +1,13 @@
+/actuator
+/actuator/health
+/actuator/info
+/actuator/metrics
+/actuator/env
+/actuator/beans
+/actuator/mappings
+/actuator/configprops
+/actuator/loggers
+/actuator/sessions
+/v2/api-docs
+/v3/api-docs
+/swagger-ui.html

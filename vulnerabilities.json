@@ -1,0 +1,34 @@
+{
+  "vulnerability_probes": [
+    {
+      "name": "Spring Boot - Actuators Environment Exposed",
+      "applies_to_tech": ["spring_boot", "java_app_server"],
+      "probe": {
+        "path": "/actuator/env",
+        "method": "GET",
+        "match_status": 200,
+        "match_content_regex": "(?i)passwords|credentials|spring.datasource.url"
+      }
+    },
+    {
+      "name": "Laravel - Ignition Debug Mode Exposed",
+      "applies_to_tech": ["laravel"],
+      "probe": {
+        "path": "/_ignition/execute-solution",
+        "method": "POST",
+        "match_status": 200,
+        "match_content_regex": "(?i)Solution executed successfully"
+      }
+    },
+    {
+      "name": "WordPress - Users Endpoint Exposed",
+      "applies_to_tech": ["wordpress"],
+      "probe": {
+        "path": "/wp-json/wp/v2/users",
+        "method": "GET",
+        "match_status": 200,
+        "match_content_regex": "(?i)\"slug\":\"[a-zA-Z0-9-]+\""
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "target_host": "https://api.example.com",
+  "wordlist_path": "./wordlists/api-endpoints.txt",
+  "http_methods": [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE"
+  ],
+  "request_headers": {
+    "User-Agent": "APIRecon-Tool/1.0",
+    "Authorization": "Bearer YOUR_ACCESS_TOKEN_HERE",
+    "Accept": "application/json"
+  },
+  "threads": 10,
+  "timeout_seconds": 15,
+  "match_status_codes": [
+    200,
+    201,
+    204,
+    401,
+    403
+  ],
+  "output_file": "results.json",
+  "follow_redirects": true,
+  "verbose": false
+}
